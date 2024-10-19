@@ -56,4 +56,10 @@ configs = [
 
 ### 使用
 
-如需使用有颜色的输出, 请安装 `colorama`: `pip install colorama` 再运行
+> 如需使用有颜色的输出, 请安装 `colorama`: `pip install colorama` 再运行.
+
+按程序中的指引操作即可
+
+## Contact
+
+如果对此库有 想法/建议, 可 [Issue](https://github.com/wyf9/music/issues/new) or [More contact](https://wyf9.top/#/contact)
