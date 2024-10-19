@@ -1,5 +1,6 @@
 # coding: utf-8
 import os
+import json
 if __name__ == '__main__':
     print('Please start main program craate.py!')
 
@@ -135,3 +136,18 @@ class utils:
                     audio_path = os.path.join(root, file)
 
         return entry_path, audio_path
+
+    def load_json(self, json_name):
+        '''
+        加载 json 文件
+
+        :param json_name: 文件名
+        :return: 列表或字典
+        > copied from wyf01239/CmdlineAI@dev:/utils.py
+        '''
+        try:
+            with open(json_name, 'r', encoding='utf-8') as file:
+                return json.load(file)
+        except json.decoder.JSONDecodeError as err:
+            self.error(f'Load json file `{json_name}` Error: {err}! Please check the json format!')
+            raise
