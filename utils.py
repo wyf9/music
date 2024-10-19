@@ -18,12 +18,16 @@ class utils:
         except:
             print(f'[utils] [WARNING] colorama import failed, will disable colorful output.')
             self.colorama = False
-
     def info(self, msg):
         if self.colorama:
             print(f'{self.color_fore.GREEN}[INFO]{self.color_style.RESET_ALL} {msg}')
         else:
             print(f'[INFO] {msg}')
+    def tip(self, msg):
+        if self.colorama:
+            print(f'{self.color_fore.MAGENTA}[TIP]{self.color_style.RESET_ALL} {msg}')
+        else:
+            print(f'[TIP] {msg}')
     def debug(self, msg):
         if self.colorama:
             print(f'{self.color_fore.CYAN}[DEBUG]{self.color_style.RESET_ALL} {msg}')
@@ -91,6 +95,11 @@ class utils:
                 self.utils_instance.debug(f'[videoid/convert] avid: {retid}')
                 return retid
             except:
-                retid = self.bv2av(id)
-                return 
+                try:
+                    retid = self.bv2av(id)
+                except:
+                    self.utils_instance.warning('Convert failed! av/bv id corrent?')
+                    return None
+                self.utils_instance.debug(f'[videoid/convert] bvid: {id} -> avid: {retid}')
+                return retid
     videoid = videoid_init(utils_instance=None)

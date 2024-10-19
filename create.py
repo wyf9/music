@@ -34,10 +34,13 @@ def Main():
 
     # main while
     while True:
-        # input av/bv
+        # get av id
         avbv = u.input('AV/BV id: ')
         avid = u.videoid.convert(avbv)
-        u.debug(avid)
+        if not avid:
+            continue
+
+        #
 
 
 # Main Error Handle
