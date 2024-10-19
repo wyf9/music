@@ -53,3 +53,5 @@ configs = [
 ```
 
 ### 使用
+
+如需使用有颜色的输出, 请安装 `colorama`: `pip install colorama` 再运行
