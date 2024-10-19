@@ -5,6 +5,10 @@
 		}
 	],
 	"settings": {
-		"git.openRepositoryInParentFolders":"always"
+		"git.openRepositoryInParentFolders":"always",
+		"autopep8.args": [
+			"--max-line-length",
+			"200"
+		],
 	}
 }

@@ -2,6 +2,7 @@
 
 # import
 from sys import exit as sys_exit
+from os.path import join
 from config import configs
 from utils import utils as utils_init
 u = utils_init()
@@ -21,26 +22,38 @@ def Main():
                 u.info('Quitting.')
                 return 0
             conf = configs[inp - 1]
+            baseFolder = conf['baseFolder']
+            TargetFolder = conf['targetFolder']
             u.info('Selected config:')
             u.info(f'Name: {conf["name"]}')
-            u.info(f'BaseFolder: {conf["baseFolder"]}')
-            u.info(f'TargetFolder: {conf["targetFolder"]}')
+            u.info(f'BaseFolder: {baseFolder}')
+            u.info(f'TargetFolder: {TargetFolder}')
         except KeyboardInterrupt:
             raise
         except:
-            u.warning('Invaild config number!')
+            u.warning('Invaild config number, or config format wrong!')
             continue
         break
 
     # main while
+    num = u.input('Start number: ')
     while True:
         # get av id
         avbv = u.input('AV/BV id: ')
         avid = u.videoid.convert(avbv)
         if not avid:
             continue
+        
+        video_base_path = join(baseFolder, str(avid))
+        u.debug(video_base_path)
+        entry_path, audio_path = u.find_json_m4s(video_base_path)  # 确保 avid 是字符串
 
-        #
+        if not (entry_path and audio_path):
+            u.warning('Find entry.json or(and) audio.m4s failed! Did you download this video?')
+            continue
+
+        u.debug(f'Found entry.json at: {entry_path}')
+        u.debug(f'Found audio.m4s at: {audio_path}')
 
 
 # Main Error Handle
