@@ -63,7 +63,7 @@ def Main():
 
         # get paths
         video_base_path = path.join(baseFolder, str(avid))
-        u.debug(video_base_path)
+        u.debug('video_base_path: ' + video_base_path)
         entry_path, audio_path = u.find_json_m4s(video_base_path)  # 确保 avid 是字符串
 
         if not (entry_path and audio_path):
@@ -76,7 +76,6 @@ def Main():
         # try get owner_name and title from json
         try:
             entry_json = u.load_json(entry_path)
-            u.debug(entry_json)
             json_title = entry_json['title']
             json_owner = entry_json['owner_name']
             json_owner_id = entry_json['owner_id']
@@ -97,6 +96,8 @@ def Main():
         # build src, tgt and copy
         audio_filename = audioNameStr.format(v_num=num, v_avid=avid, v_name=audio_name)
         audio_file_path = path.join(TargetFolder, audio_filename)
+        u.debug('audio_filename: ' + audio_filename)
+        u.debug('audio_file_path: ' + audio_file_path)
         copy_src = path.abspath(audio_path)
         copy_tgt = path.abspath(audio_file_path)
         u.info(f'Copy: {copy_src} -> {copy_tgt}')
