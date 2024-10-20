@@ -7,10 +7,9 @@ if __name__ == '__main__':
 
 class utils:
     '''
-    在创建实例时请额外使用
-    ```
-    u.videoid = u.videoid_init(u)
-    ```
+    **(`info()`, `tip()`, `debug()`, `warning()`, `error()`, `input()`)**:
+
+    :param msg: 信息
     '''
 
     def __init__(self):
@@ -65,10 +64,20 @@ class utils:
     class videoid_init:
         '''
         本 class 中的 av/bv 互转代码来自 https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/misc/bvid_desc.md#python
+
         并作出了一点修改
         '''
 
         def __init__(self, utils_instance):
+            '''
+            :param utils_instance: (obj) utils 实例 (本 class 的上级)
+
+            如下:
+            ```
+            u = utils_init()
+            u.videoid = u.videoid_init(utils_instance = u)
+            ```
+            '''
             self.utils_instance = utils_instance
         XOR_CODE = 23442827791579
         MASK_CODE = 2251799813685247
@@ -83,6 +92,12 @@ class utils:
         CODE_LEN = len(ENCODE_MAP)
 
         def av2bv(self, avid: int) -> str:
+            '''
+            av to bv
+
+            :param avid: (int) avid
+            :return: (str) bvid
+            '''
             bvid = [""] * 9
             tmp = (self.MAX_AID | avid) ^ self.XOR_CODE
             for i in range(self.CODE_LEN):
@@ -91,6 +106,12 @@ class utils:
             return self.PREFIX + "".join(bvid)
 
         def bv2av(self, bvid: str) -> int:
+            '''
+            bv to av
+
+            :param bvid: (str) bvid
+            :return: (int) avid
+            '''
             assert bvid[:3] == self.PREFIX
 
             bvid = bvid[3:]
@@ -104,6 +125,9 @@ class utils:
             '''
             增加
             自动判断是否为 av 号, 如不是则转换为 av 号
+
+            :param id: av or bv
+            :return retid: (int) avid
             '''
             try:
                 retid = int(id)
@@ -121,7 +145,11 @@ class utils:
 
     def find_json_m4s(self, path: str):
         '''
-        查找目录中的 entry.json, audio.m4s
+        查找目录中的 `entry.json`, `audio.m4s`
+
+        :param path: bilibili `download` 目录
+        :return entry_path: `entry.json` (绝对目录)
+        :return audio_path: `audio.m4s` (绝对目录)
         '''
         # path = f"R:\\Android\\data\\tv.danmaku.bili\\download\\{av_id}"  # 根据实际路径修改
         entry_path = None
