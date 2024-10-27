@@ -171,9 +171,9 @@ def Main():
             for i in range(len(avlist)):
                 u.info(f'- #{num} {i+1}/{len(avlist)}: AVID {avlist[i][0]}')
                 ret = dl(
-                    avid=i['avid'],
-                    entry_path=i['entry_path'],
-                    audio_path=i['audio_path'],
+                    avid=avlist[i][0],
+                    entry_path=avlist[i][1],
+                    audio_path=avlist[i][2],
                     targetFolder=targetFolder,
                     audioNameStr=audioNameStr
                 )
@@ -184,7 +184,7 @@ def Main():
 
 # Main Error Handle
 try:
-    sys_exit(Main())
+    Main()
 except KeyboardInterrupt:
     print('[Detected ^C/^Z or other stop signal]')
     u.info('Quitting.')

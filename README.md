@@ -60,6 +60,8 @@ configs = [
 
 按程序中的指引操作即可
 
+> 在 Windows 中按时间顺序(先后)列出文件夹: `dir /A:D /O:D` (加 `/B` 只留文件名)
+
 ## Contact
 
 如果对此库有 想法/建议, 可 [Issue](https://github.com/wyf9/music/issues/new) or [More contact](https://wyf9.top/#/contact)
