@@ -23,37 +23,37 @@ class utils:
                 f'[utils] [WARNING] colorama import failed, will disable colorful output.')
             self.colorama = False
 
-    def info(self, msg):
+    def info(self, msg: str):
         if self.colorama:
             print(f'{self.color_fore.GREEN}[INFO]{self.color_style.RESET_ALL} {msg}')
         else:
             print(f'[INFO] {msg}')
 
-    def tip(self, msg):
+    def tip(self, msg: str):
         if self.colorama:
             print(f'{self.color_fore.MAGENTA}[TIP]{self.color_style.RESET_ALL} {msg}')
         else:
             print(f'[TIP] {msg}')
 
-    def debug(self, msg):
+    def debug(self, msg: str):
         if self.colorama:
             print(f'{self.color_fore.CYAN}[DEBUG]{self.color_style.RESET_ALL} {msg}')
         else:
             print(f'[DEBUG] {msg}')
 
-    def warning(self, msg):
+    def warning(self, msg: str):
         if self.colorama:
             print(f'{self.color_fore.YELLOW}[WARNING]{self.color_style.RESET_ALL} {msg}')
         else:
             print(f'[WARNING] {msg}')
 
-    def error(self, msg):
+    def error(self, msg: str):
         if self.colorama:
             print(f'{self.color_fore.RED}[ERROR]{self.color_style.RESET_ALL} {msg}')
         else:
             print(f'[ERROR] {msg}')
 
-    def input(self, msg):
+    def input(self, msg: str):
         if self.colorama:
             ret = input(f'{self.color_fore.BLUE}[INPUT]{
                         self.color_style.RESET_ALL} {msg}')
@@ -68,7 +68,7 @@ class utils:
         并作出了一点修改
         '''
 
-        def __init__(self, utils_instance):
+        def __init__(self, utils_instance: object):
             '''
             :param utils_instance: (obj) utils 实例 (本 class 的上级)
 
@@ -165,7 +165,7 @@ class utils:
 
         return entry_path, audio_path
 
-    def load_json(self, json_name):
+    def load_json(self, json_name: str):
         '''
         加载 json 文件
 

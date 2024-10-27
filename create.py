@@ -9,10 +9,8 @@ from utils import utils as utils_init
 u = utils_init()
 u.videoid = u.videoid_init(u)
 
-global num
 
-
-def dl(avid, entry_path, audio_path, targetFolder, audioNameStr):
+def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str, audioNameStr: str):
 
     # try get owner_name and title from json
     try:
@@ -164,13 +162,14 @@ def Main():
                     continue
 
                 avlist += [[avid, entry_path, audio_path]]
-                u.debug(f'Added avid: {avid}')
+                u.info(f'Added avid: {avid}')
                 continue
-            
+
             # for in ids
             for i in range(len(avlist)):
                 u.info(f'- #{num} {i+1}/{len(avlist)}: AVID {avlist[i][0]}')
                 ret = dl(
+                    num=num,
                     avid=avlist[i][0],
                     entry_path=avlist[i][1],
                     audio_path=avlist[i][2],
@@ -179,7 +178,6 @@ def Main():
                 )
                 if ret == 0:
                     num += 1
-
 
 
 # Main Error Handle
