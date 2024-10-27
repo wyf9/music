@@ -50,7 +50,7 @@ def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str,
             return 1
     if path.exists(copy_tgt):
         proc2 = u.input(f'File {copy_tgt} already exists! Replace it? (Y/n)')
-        if proc2.lower() != 'n':
+        if proc2.lower() == 'n':
             u.info('Canceled.')
             return 1
     copy2(copy_src, copy_tgt)
