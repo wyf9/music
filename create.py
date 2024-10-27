@@ -4,18 +4,20 @@
 from sys import exit as sys_exit
 from os import path
 from shutil import copy2
-from config import configs
+from config import config, configs
 from utils import utils as utils_init
 u = utils_init()
 u.videoid = u.videoid_init(u)
 
 
-def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str, audioNameStr: str):
+def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str, audioNameStr: str, needProceed: bool):
 
     # try get owner_name and title from json
     try:
         entry_json = u.load_json(entry_path)
         json_title = entry_json['title']
+        json_part = entry_json['page_data']['part']
+        json_cid = entry_json['page_data']['cid']
         json_owner = entry_json['owner_name']
         json_owner_id = entry_json['owner_id']
 
@@ -26,6 +28,7 @@ def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str,
     # video info and audio name
     u.info('[Video Info]')
     print(f'Title:  {json_title} [AVID {avid}]')
+    print(f'Part:  {json_part} [CID {json_cid}]')
     print(f'Owner:  {json_owner} [UID {json_owner_id}]')
     print(f'Number: {num}')
     audio_name = u.input('Audio name (0 -> cancel): ')
@@ -40,18 +43,18 @@ def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str,
     copy_src = path.abspath(audio_path)
     copy_tgt = path.abspath(audio_file_path)
     u.info(f'Copy: {copy_src} -> {copy_tgt}')
-    proc = u.input('Proceed? (*Y*/n)')
-    if proc.lower() == 'n':
-        u.info('Canceled.')
-        return 1
-    else:
-        if path.exists(copy_tgt):
-            proc2 = u.input(f'File {copy_tgt} already exists! Replace it? (y/*N*)')
-            if proc2.lower() != 'y':
-                u.info('Canceled.')
-                return 1
-        copy2(copy_src, copy_tgt)
-        return 0
+    if needProceed:
+        proc = u.input('Proceed? (Y/n)')
+        if proc.lower() == 'n':
+            u.info('Canceled.')
+            return 1
+    if path.exists(copy_tgt):
+        proc2 = u.input(f'File {copy_tgt} already exists! Replace it? (Y/n)')
+        if proc2.lower() != 'n':
+            u.info('Canceled.')
+            return 1
+    copy2(copy_src, copy_tgt)
+    return 0
 
 
 def Main():
@@ -66,15 +69,17 @@ def Main():
             if inp == 0:
                 u.info('Quitting.')
                 return 0
+            needProceed = bool(config['needProceed'])
+            audioNameStr = str(config['audioNameStr'])
             conf = configs[inp - 1]
             baseFolder = str(conf['baseFolder'])
             targetFolder = str(conf['targetFolder'])
-            audioNameStr = str(conf['audioNameStr'])
             u.info('[Config info]')
+            print(f'needProceed: {needProceed}')
+            print(f'audioNameStr: {audioNameStr}')
             print(f'Name: {conf["name"]}')
             print(f'BaseFolder: {baseFolder}')
             print(f'TargetFolder: {targetFolder}')
-            print(f'audioNameStr: {audioNameStr}')
         except KeyboardInterrupt:
             raise
         except:
@@ -133,7 +138,8 @@ def Main():
                     entry_path=entry_path,
                     audio_path=audio_path,
                     targetFolder=targetFolder,
-                    audioNameStr=audioNameStr
+                    audioNameStr=audioNameStr,
+                    needProceed=needProceed
                 )
                 if ret == 0:
                     num += 1
@@ -174,10 +180,12 @@ def Main():
                     entry_path=avlist[i][1],
                     audio_path=avlist[i][2],
                     targetFolder=targetFolder,
-                    audioNameStr=audioNameStr
+                    audioNameStr=audioNameStr,
+                    needProceed=needProceed
                 )
                 if ret == 0:
                     num += 1
+            u.info('Finished!')
 
 
 # Main Error Handle
