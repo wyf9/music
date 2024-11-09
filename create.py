@@ -64,6 +64,7 @@ def cp(num: int, avid: int, audio_path: str, targetFolder: str, audioNameStr: st
         return 114514
     return 0
 
+
 def info(entry_path: str, avid: int, num: int, audio_name: str = None):
     # try get owner_name and title from json
     try:
@@ -136,8 +137,8 @@ def Main():
 
     # select mode
     while True:
-        mode = u.input('Select mode (w-while, l-list): ')
-        if mode.lower() == 'w' or mode.lower() == 'l' or mode.lower() == 'what':
+        mode = u.input('Select mode (w-while, l-list, ll-list[av/bv id first, names after]): ')
+        if mode.lower() == 'w' or mode.lower() == 'l' or mode.lower() == 'll':
             break
         else:
             u.warning('Invaild mode!')
@@ -189,49 +190,6 @@ def Main():
                 if ret == 0:
                     num += 1
 
-        # case 'l' | 'L':
-        #     # list mode old
-        #     u.tip('Input \'/s\' to save')
-        #     u.info('List mode - Input AV/BV id(s):')
-
-        #     # get avid list
-        #     avlist = []
-        #     while True:
-        #         avbv = u.input(f'id #{len(avlist)+1}: ')
-        #         if avbv.lower() == '/s':
-        #             break
-        #         avid = u.videoid.convert(avbv)
-        #         if not avid:
-        #             continue
-        #         # get paths
-        #         video_base_path = path.join(baseFolder, str(avid))
-        #         u.debug('video_base_path: ' + video_base_path)
-        #         entry_path, audio_path = u.find_json_m4s(video_base_path)  # 确保 avid 是字符串
-
-        #         if not (entry_path and audio_path):
-        #             u.warning('Find entry.json and/or audio.m4s failed! Did you download this video?')
-        #             continue
-
-        #         avlist += [[avid, entry_path, audio_path]]
-        #         u.info(f'Added avid: {avid}')
-        #         continue
-
-        #     # for in ids
-        #     for i in range(len(avlist)):
-        #         u.info(f'- #{num} {i+1}/{len(avlist)}: AVID {avlist[i][0]}')
-        #         ret = cp(
-        #             num=num,
-        #             avid=avlist[i][0],
-        #             entry_path=avlist[i][1],
-        #             audio_path=avlist[i][2],
-        #             targetFolder=targetFolder,
-        #             audioNameStr=audioNameStr,
-        #             needProceed=needProceed
-        #         )
-        #         if ret == 0:
-        #             num += 1
-        #     u.info('Finished!')
-
         case 'l' | 'L':
             # list mode
             u.tip('Input \'/s\' to save')
@@ -279,6 +237,67 @@ def Main():
                     audioNameStr=audioNameStr,
                     needProceed=needProceed,
                     audio_name=avlist[i][3]
+                )
+                if ret == 0:
+                    num += 1
+            u.info('Finished!')
+
+        case 'll' | 'LL':
+            # list mode (av/bv id first, name after)
+            u.tip('Input \'/s\' to save')
+            u.info('List mode - Input AV/BV id(s):')
+
+            # get avid list
+            avlist = []
+            while True:
+                avbv = u.input(f'id #{len(avlist)+1}: ')
+                if avbv.lower() == '/s':
+                    break
+                avid = u.videoid.convert(avbv)
+                if not avid:
+                    continue
+                # get paths
+                video_base_path = path.join(baseFolder, str(avid))
+                u.debug('video_base_path: ' + video_base_path)
+                entry_path, audio_path = u.find_json_m4s(video_base_path)  # 确保 avid 是字符串
+
+                if not (entry_path and audio_path):
+                    u.warning('Find entry.json and/or audio.m4s failed! Did you download this video?')
+                    continue
+
+                avlist += [(num, avid, entry_path, audio_path)]  # , audio_name]]
+                u.info(f'Added avid: {avid}')
+                continue
+
+            # get names list
+            u.info('List mode - Input audio name(s):')
+            for i in range(len(avlist)):
+                localnum, avid, entry_path, audio_path = avlist[i]
+                while True:
+                    audio_name = info(
+                        entry_path=entry_path,
+                        avid=avid,
+                        num=localnum
+                    )
+                    if not audio_name:
+                        continue
+                    else:
+                        break
+                avlist[i] = localnum, avid, entry_path, audio_path, audio_name
+                u.info(f'Added name for avid: {avid} - {audio_name}')
+
+            # for in ids
+            for i in range(len(avlist)):
+                u.info(f'- #{avlist[i][0]} {i+1}/{len(avlist)}: AVID {avlist[i][1]} - Name {avlist[i][4]}')
+                ret = cp(
+                    num=avlist[i][0],
+                    avid=avlist[i][1],
+                    # entry_path=avlist[i][1],
+                    audio_path=avlist[i][3],
+                    targetFolder=targetFolder,
+                    audioNameStr=audioNameStr,
+                    needProceed=needProceed,
+                    audio_name=avlist[i][4]
                 )
                 if ret == 0:
                     num += 1
