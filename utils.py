@@ -138,7 +138,7 @@ class utils:
                 try:
                     retid = self.bv2av(id)
                 except:
-                    self.utils_instance.warning('[av/bv convert] Convert failed! av/bv id corrent?')
+                    self.utils_instance.warning('[av/bv convert] Convert failed! Is av/bv id corrent?')
                     return None
                 self.utils_instance.debug(f'[av/bv convert] bvid: {id} -> avid: {retid}')
                 return retid
@@ -181,11 +181,13 @@ class utils:
             self.error(f'Load json file `{json_name}` Error: {err}! Please check the json format!')
             raise
 
-    def convert_m4a_to_mp3(self, m4a_path: str, mp3_path: str, ffmpeg_path: str = 'ffmpeg'):
+    def convert_m4a_to_mp3(self, m4a_path: str, mp3_path: str, ffmpeg_path: str = 'ffmpeg', force_override: bool = True):
         command = f'{ffmpeg_path} -i "{m4a_path}" -vn "{mp3_path}"'  # -ab "128k"
+        if force_override:
+            command += ' -f flag'
         try:
             subprocess.check_call(command, shell=True)
-            self.debug(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path} Success")
+            self.debug(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path}")
         except subprocess.CalledProcessError as e:
             self.error(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path} using {ffmpeg_path} failed: {e}")
             raise(e)

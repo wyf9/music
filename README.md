@@ -4,6 +4,9 @@ My Music library on GitHub
 
 这也是一个测试github上能不能放音乐的库
 
+> [!INFO]
+> 如下所说, 本库 `/bili` 目录下的音频名称格式为 *编号_**AV号**_名称.mp3*, 如果看到自己喜欢的歌曲可以跳转 `https://bilibili.com/video/av[AV号]` 查看原视频~
+
 ## 本库唯一的代码
 
 - `/create.py`
@@ -67,7 +70,7 @@ configs = [
 > 如需使用有颜色的输出, 请安装 `colorama`: `pip install colorama` 再运行.
 
 > [!WARNING]
-> 需安装 ffmpeg, 添加到 PATH 中以直接调用, 或在配置中指定路径: [ffmpeg-python GitHub](https://github.com/kkroening/ffmpeg-python#installing-ffmpeg)
+> 需安装 ffmpeg, 并添加到 PATH 中以直接调用<!--, 或在配置中指定路径-->: [ffmpeg-python GitHub](https://github.com/kkroening/ffmpeg-python#installing-ffmpeg)
 
 按程序中的指引操作即可
 
