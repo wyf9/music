@@ -10,7 +10,7 @@ My Music library on GitHub
 
 这是一个从手机 bilibili 缓存目录到此, 实现:
 - 通过 AV/BV 号确定音频 (audio.m4s)
-- 编号, 改名
+- 编号, ~~改名~~转换格式
 - And more?
 的脚本.
 
@@ -65,6 +65,9 @@ configs = [
 ### 使用
 
 > 如需使用有颜色的输出, 请安装 `colorama`: `pip install colorama` 再运行.
+
+> [!WARNING]
+> 需安装 ffmpeg, 添加到 PATH 中以直接调用, 或在配置中指定路径: [ffmpeg-python GitHub](https://github.com/kkroening/ffmpeg-python#installing-ffmpeg)
 
 按程序中的指引操作即可
 

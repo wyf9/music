@@ -1,4 +1,5 @@
 # coding: utf-8
+import subprocess
 import os
 import json
 if __name__ == '__main__':
@@ -131,15 +132,15 @@ class utils:
             '''
             try:
                 retid = int(id)
-                self.utils_instance.debug(f'[convert] avid: {retid}')
+                self.utils_instance.debug(f'[av/bv convert] avid: {retid}')
                 return retid
             except:
                 try:
                     retid = self.bv2av(id)
                 except:
-                    self.utils_instance.warning('Convert failed! av/bv id corrent?')
+                    self.utils_instance.warning('[av/bv convert] Convert failed! av/bv id corrent?')
                     return None
-                self.utils_instance.debug(f'[convert] bvid: {id} -> avid: {retid}')
+                self.utils_instance.debug(f'[av/bv convert] bvid: {id} -> avid: {retid}')
                 return retid
     videoid = videoid_init(utils_instance=None)
 
@@ -179,3 +180,15 @@ class utils:
         except json.decoder.JSONDecodeError as err:
             self.error(f'Load json file `{json_name}` Error: {err}! Please check the json format!')
             raise
+
+    def convert_m4a_to_mp3(self, m4a_path: str, mp3_path: str, ffmpeg_path: str = 'ffmpeg'):
+        command = f'{ffmpeg_path} -i "{m4a_path}" -vn "{mp3_path}"'  # -ab "128k"
+        try:
+            subprocess.check_call(command, shell=True)
+            self.debug(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path} Success")
+        except subprocess.CalledProcessError as e:
+            self.error(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path} using {ffmpeg_path} failed: {e}")
+            raise(e)
+
+    # 使用时，提供你的 m4a 文件路径和 mp3 文件路径
+    # convert_m4a_to_mp3("input.m4a", "output.mp3", ffmpeg_path='D:\\wyf9\\PATH\\ffmpeg.exe')
