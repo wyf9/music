@@ -53,7 +53,12 @@ def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str,
         if proc2.lower() == 'n':
             u.info('Canceled.')
             return 1
-    copy2(copy_src, copy_tgt)
+    # copy2(copy_src, copy_tgt) # - old
+    try:
+        u.convert_m4a_to_mp3(copy_src, copy_tgt)
+    except:
+        u.error('Convert Error!')
+        return 114514
     return 0
 
 
@@ -134,6 +139,7 @@ def Main():
                 u.debug(f'Found entry.json at: {entry_path}')
                 u.debug(f'Found audio.m4s at: {audio_path}')
                 ret = dl(
+                    num=num,
                     avid=avid,
                     entry_path=entry_path,
                     audio_path=audio_path,
