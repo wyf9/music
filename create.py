@@ -267,6 +267,7 @@ def Main():
 
                 avlist += [(num, avid, entry_path, audio_path)]  # , audio_name]]
                 u.info(f'Added avid: {avid}')
+                num += 1
                 continue
 
             # get names list
@@ -299,8 +300,6 @@ def Main():
                     needProceed=needProceed,
                     audio_name=avlist[i][4]
                 )
-                if ret == 0:
-                    num += 1
             u.info('Finished!')
 
 
