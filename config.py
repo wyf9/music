@@ -13,7 +13,7 @@ configs = [
     {
         'name': 'DESKTOP-3EE05KD-redmi-rclone',  # str: 名称
         'baseFolder': r'R:\Android\data\tv.danmaku.bili\download',  # str: 缓存目录
-        'targetFolder': r'E:\wyf9\music\bili',  # str: 目标目录
+        'targetFolder': r'E:\wyf9\music\bili_new',  # str: 目标目录
     },
     {
         # ...

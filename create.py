@@ -10,7 +10,7 @@ u = utils_init()
 u.videoid = u.videoid_init(u)
 
 
-def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str, audioNameStr: str, needProceed: bool):
+def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str, audioNameStr: str, needProceed: bool, audio_name: str = None):
 
     # try get owner_name and title from json
     try:
@@ -31,7 +31,10 @@ def dl(num: int, avid: int, entry_path: str, audio_path: str, targetFolder: str,
     print(f'Part:  {json_part} [CID {json_cid}]')
     print(f'Owner:  {json_owner} [UID {json_owner_id}]')
     print(f'Number: {num}')
-    audio_name = u.input('Audio name (0 -> cancel): ')
+    if audio_name == None:
+        audio_name = u.input('Audio name (0 -> cancel): ')
+    else:
+        print(f'Name: {audio_name}')
     if audio_name == '0':
         return 1
 
@@ -106,7 +109,7 @@ def Main():
     # select mode
     while True:
         mode = u.input('Select mode (w-while, l-list): ')
-        if mode.lower() == 'w' or mode.lower() == 'l':
+        if mode.lower() == 'w' or mode.lower() == 'l' or mode.lower() == 'what':
             break
         else:
             u.warning('Invaild mode!')
@@ -188,6 +191,52 @@ def Main():
                     targetFolder=targetFolder,
                     audioNameStr=audioNameStr,
                     needProceed=needProceed
+                )
+                if ret == 0:
+                    num += 1
+            u.info('Finished!')
+
+        case 'what':
+            u.debug('Only for dev using!')
+            # list mode
+            u.tip('Input \'/s\' to save')
+            u.info('??? mode - Input AV/BV id(s):')
+
+            # get avid list
+            avlist = []
+            while True:
+                avbv = u.input(f'id #{len(avlist)+1}: ')
+                if avbv.lower() == '/s':
+                    break
+                avid = u.videoid.convert(avbv)
+                if not avid:
+                    continue
+                # get paths
+                video_base_path = path.join(baseFolder, str(avid))
+                u.debug('video_base_path: ' + video_base_path)
+                entry_path, audio_path = u.find_json_m4s(video_base_path)  # 确保 avid 是字符串
+
+                if not (entry_path and audio_path):
+                    u.warning('Find entry.json and/or audio.m4s failed! Did you download this video?')
+                    continue
+
+                audio_name = u.input('Input video name: ')
+                avlist += [(avid, entry_path, audio_path, audio_name)]
+                u.info(f'Added avid: {avid}')
+                continue
+
+            # for in ids
+            for i in range(len(avlist)):
+                u.info(f'- #{num} {i+1}/{len(avlist)}: AVID {avlist[i][0]} - Name {avlist[i][3]}')
+                ret = dl(
+                    num=num,
+                    avid=avlist[i][0],
+                    entry_path=avlist[i][1],
+                    audio_path=avlist[i][2],
+                    targetFolder=targetFolder,
+                    audioNameStr=audioNameStr,
+                    needProceed=needProceed,
+                    audio_name=avlist[i][3]
                 )
                 if ret == 0:
                     num += 1
