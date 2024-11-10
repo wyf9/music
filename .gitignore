@@ -2,3 +2,4 @@
 .stfolder/
 __pycache__/
 全损音质/
+*.tmp
