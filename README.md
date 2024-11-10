@@ -68,20 +68,40 @@ configs = [
 
 ### 使用
 
-> 如需使用有颜色的输出, 请安装 `colorama`: `pip install colorama` 再运行.
+> 如需使用有颜色的输出, 请安装 `colorama` 再运行.
+
+```sh
+pip install colorama
+# or without apt
+pip install colorama --break-system-packages
+# or apt
+apt install python3-colorama
+```
 
 > [!WARNING]
-> 需安装 ffmpeg, 并添加到 PATH *(或直接移动到系统目录 **{Windows: `C:\Windows\[System32\]`, Linux: `[/usr]/bin/`}中)*** 中以直接调用: [ffmpeg-python GitHub](https://github.com/kkroening/ffmpeg-python#installing-ffmpeg)
+> 需安装 ffmpeg, 并添加到 PATH *(或直接移动到系统目录 **{Windows: `C:\Windows\[System32\]`, Linux: `[/usr]/bin/`}中)*** 中以直接调用: [此处下载](https://ffmpeg.org/download.html)
 
 按程序中的指引操作即可
 
-> 在 Windows 中按时间顺序(先后)列出文件夹: `dir /A:D /O:D` (加 `/B` 只留文件名)
+> 在 Windows 中按时间顺序(先后)列出文件夹: `dir /A:D /O:D` (加 `/B` 为空格式, 即只留文件名，一行一个)
 
 ## 小脚本
 
-`/.scripts/`
+`/.scripts/autoClick.py`
 
 包含: 野生的自动点击脚本，用于完成在 [音乐播放软件](https://github.com/zhongyang219/MusicPlayer2) 中 *嵌入歌词/封面* 等操作
+
+依赖:
+
+- `pyyaml`
+- `keyboard`
+- `pyautogui`
+
+```sh
+pip install pyyaml keyboard pyautogui
+# or without apt
+pip install pyyaml keyboard pyautogui --break-system-packages
+```
 
 ## Contact
 
