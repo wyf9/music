@@ -1,6 +1,6 @@
 # Music
 
-My Music library on GitHub
+My music library on GitHub
 
 这也是一个测试github上能不能放音乐的库
 
@@ -76,6 +76,12 @@ configs = [
 按程序中的指引操作即可
 
 > 在 Windows 中按时间顺序(先后)列出文件夹: `dir /A:D /O:D` (加 `/B` 只留文件名)
+
+## 小脚本
+
+`/.scripts/`
+
+包含: 野生的自动点击脚本，用于完成在 [音乐播放软件](https://github.com/zhongyang219/MusicPlayer2) 中 *嵌入歌词/封面* 等操作
 
 ## Contact
 
