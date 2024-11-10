@@ -5,7 +5,7 @@ if __name__ == '__main__':
 # Global config
 config = {
     'needProceed': False,  # bool: 复制文件时确认
-    'audioNameStr': '{v_num}_{v_avid}_{v_name}.mp3'  # str: 构建音频名称使用 ({v_num}: 编号; {v_avid}: av 号; {v_name}: 名称)
+    'audioNameStr': '{v_num}_{v_avid}_{v_name}.mp3'  # str: 构建音频文件名使用 ({v_num}: 编号; {v_avid}: av 号; {v_name}: 名称)
 }
 
 # Config list
@@ -15,8 +15,8 @@ configs = [
         'baseFolder': r'R:\Android\data\tv.danmaku.bili\download',  # str: 缓存目录
         'targetFolder': r'E:\wyf9\music\bili',  # str: 目标目录
     },
-    {
-        # ...
-    }
+    # {
+    # ...
+    # }
     # 还可添加更多
 ]

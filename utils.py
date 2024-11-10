@@ -190,7 +190,7 @@ class utils:
             self.debug(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path}")
         except subprocess.CalledProcessError as e:
             self.error(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path} using {ffmpeg_path} failed: {e}")
-            raise(e)
+            raise (e)
 
     # 使用时，提供你的 m4a 文件路径和 mp3 文件路径
     # convert_m4a_to_mp3("input.m4a", "output.mp3", ffmpeg_path='D:\\wyf9\\PATH\\ffmpeg.exe')

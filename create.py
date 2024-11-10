@@ -11,33 +11,17 @@ u.videoid = u.videoid_init(u)
 
 
 def cp(num: int, avid: int, audio_path: str, targetFolder: str, audioNameStr: str, needProceed: bool, audio_name: str):
+    '''
+    Copy and convert audio
 
-    # # try get owner_name and title from json
-    # try:
-    #     entry_json = u.load_json(entry_path)
-    #     json_title = entry_json['title']
-    #     json_part = entry_json['page_data']['part']
-    #     json_cid = entry_json['page_data']['cid']
-    #     json_owner = entry_json['owner_name']
-    #     json_owner_id = entry_json['owner_id']
-
-    # except Exception as e:
-    #     u.warning(f'Load data from json failed: {e}')
-    #     return 1
-
-    # # video info and audio name
-    # u.info('[Video Info]')
-    # print(f'Title:  {json_title} [AVID {avid}]')
-    # print(f'Part:  {json_part} [CID {json_cid}]')
-    # print(f'Owner:  {json_owner} [UID {json_owner_id}]')
-    # print(f'Number: {num}')
-    # if audio_name == None:
-    #     audio_name = u.input('Audio name (0 -> cancel): ')
-    # else:
-    #     print(f'Name: {audio_name}')
-    # if audio_name == '0':
-    #     return 1
-
+    :param num: number (#...), will replace `{v_num}` in `audioNameStr`
+    :param avid: AVID, will replace `{v_avid}` in `audioNameStr`
+    :param audio_path: Source audio path (`audio.m4s`)
+    :param targetFolder: target folder to place output (`config.py` / `configs[x]['targetFolder']`)
+    :param audioNameStr: `config.py` / `config['audioNameStr']`
+    :param needProceed: Control `Proceed? (Y/n)` prompt (`config.py` / `config['needProceed']`)
+    :param audio_name: audio's name, will replace `{v_name}` in `audioNameStr`
+    '''
     # build src, tgt and copy
     audio_filename = audioNameStr.format(v_num=num, v_avid=avid, v_name=audio_name)
     audio_file_path = path.join(targetFolder, audio_filename)
@@ -56,7 +40,7 @@ def cp(num: int, avid: int, audio_path: str, targetFolder: str, audioNameStr: st
         if proc2.lower() == 'n':
             u.info('Canceled.')
             return 1
-    # copy2(copy_src, copy_tgt) # - old
+    # copy2(copy_src, copy_tgt) # old
     try:
         u.convert_m4a_to_mp3(copy_src, copy_tgt)
     except:
@@ -65,7 +49,15 @@ def cp(num: int, avid: int, audio_path: str, targetFolder: str, audioNameStr: st
     return 0
 
 
-def info(entry_path: str, avid: int, num: int, audio_name: str = None):
+def info(entry_path: str, num: int, avid: int, audio_name: str = None):
+    '''
+    Show video information, and get `audio_name` from user input
+
+    :param entry_path: `entry.json`'s path
+    :param num: number (#...), will replace `{v_num}` in `audioNameStr`
+    :param avid: AVID, will replace `{v_avid}` in `audioNameStr`
+    :param audio_name: audio's name, will replace `{v_name}` in `audioNameStr` *(optional, if not `None`, will skip user input)*
+    '''
     # try get owner_name and title from json
     try:
         entry_json = u.load_json(entry_path)
@@ -95,6 +87,9 @@ def info(entry_path: str, avid: int, num: int, audio_name: str = None):
 
 
 def Main():
+    '''
+    Main program
+    '''
     # select config
     u.info('Configs list:')
     print('[0] - quit')
@@ -308,10 +303,12 @@ try:
     Main()
 
 except KeyboardInterrupt:
+    # User force stop (^C/^Z)
     print('[Detected ^C/^Z or other stop signal]')
     u.info('Quitting.')
     sys_exit(1)
 
 except Exception as e:
+    # Other exceptions
     print(f'[Main ERROR] Exception: {e}')
     raise
