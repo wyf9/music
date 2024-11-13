@@ -187,9 +187,9 @@ class utils:
             command += ' -f flag'
         try:
             subprocess.check_call(command, shell=True)
-            self.debug(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path}")
+            self.debug(f"[m4a(s)/mp3 convert] Convert {m4a_path} -> {mp3_path}")
         except subprocess.CalledProcessError as e:
-            self.error(f"[mp4/mp3 convert] Convert {m4a_path} -> {mp3_path} using {ffmpeg_path} failed: {e}")
+            self.error(f"[m4a(s)/mp3 convert] Convert {m4a_path} -> {mp3_path} using {ffmpeg_path} failed: {e}")
             raise (e)
 
     # 使用时，提供你的 m4a 文件路径和 mp3 文件路径
