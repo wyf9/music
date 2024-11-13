@@ -14,8 +14,8 @@ def cp(num: int, avid: int, audio_path: str, targetFolder: str, audioNameStr: st
     '''
     Copy and convert audio
 
-    :param num: number (#...), will replace `{v_num}` in `audioNameStr`
-    :param avid: AVID, will replace `{v_avid}` in `audioNameStr`
+    :param num: number, will replace `{v_num}` in `audioNameStr`
+    :param avid: Video's AVID, will replace `{v_avid}` in `audioNameStr`
     :param audio_path: Source audio path (`audio.m4s`)
     :param targetFolder: target folder to place output (`config.py` / `configs[x]['targetFolder']`)
     :param audioNameStr: `config.py` / `config['audioNameStr']`
@@ -54,8 +54,8 @@ def info(entry_path: str, num: int, avid: int, audio_name: str = None):
     Show video information, and get `audio_name` from user input
 
     :param entry_path: `entry.json`'s path
-    :param num: number (#...), will replace `{v_num}` in `audioNameStr`
-    :param avid: AVID, will replace `{v_avid}` in `audioNameStr`
+    :param num: number, will replace `{v_num}` in `audioNameStr`
+    :param avid: Video's AVID, will replace `{v_avid}` in `audioNameStr`
     :param audio_name: audio's name, will replace `{v_name}` in `audioNameStr` *(optional, if not `None`, will skip user input)*
     '''
     # try get owner_name and title from json

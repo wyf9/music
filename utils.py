@@ -66,14 +66,16 @@ class utils:
         '''
         本 class 中的 av/bv 互转代码来自 https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/misc/bvid_desc.md#python
 
-        并作出了一点修改
+        并作出了一点修改:
+        - 封装为 class
+        - 增加自动判断 av or bv: convert()
         '''
 
         def __init__(self, utils_instance: object):
             '''
-            :param utils_instance: (obj) utils 实例 (本 class 的上级)
+            :param utils_instance: utils 实例 (本 class 的上级)
 
-            如下:
+            示例如下:
             ```
             u = utils_init()
             u.videoid = u.videoid_init(utils_instance = u)
@@ -96,8 +98,8 @@ class utils:
             '''
             av to bv
 
-            :param avid: (int) avid
-            :return: (str) bvid
+            :param avid: avid
+            :return: bvid
             '''
             bvid = [""] * 9
             tmp = (self.MAX_AID | avid) ^ self.XOR_CODE
@@ -110,8 +112,8 @@ class utils:
             '''
             bv to av
 
-            :param bvid: (str) bvid
-            :return: (int) avid
+            :param bvid: bvid
+            :return: avid
             '''
             assert bvid[:3] == self.PREFIX
 
@@ -128,7 +130,7 @@ class utils:
             自动判断是否为 av 号, 如不是则转换为 av 号
 
             :param id: av or bv
-            :return retid: (int) avid
+            :return retid: avid
             '''
             try:
                 retid = int(id)
@@ -148,7 +150,9 @@ class utils:
         '''
         查找目录中的 `entry.json`, `audio.m4s`
 
-        :param path: bilibili `download` 目录
+        缓存目录在 Android 上一般为 /storage/emulated/0/Android/data/tv.danmaku.bili/download/*{av_id}*
+
+        :param path: bilibili 的 `download` (缓存) 目录
         :return entry_path: `entry.json` (绝对目录)
         :return audio_path: `audio.m4s` (绝对目录)
         '''
@@ -172,7 +176,8 @@ class utils:
 
         :param json_name: 文件名
         :return: 列表或字典
-        > copied from wyf01239/CmdlineAI@dev:/utils.py
+
+        > *(copied from wyf01239/CmdlineAI@dev/utils.py)*
         '''
         try:
             with open(json_name, 'r', encoding='utf-8') as file:
@@ -182,6 +187,16 @@ class utils:
             raise
 
     def convert_m4a_to_mp3(self, m4a_path: str, mp3_path: str, ffmpeg_path: str = 'ffmpeg', force_override: bool = True):
+        '''
+        将 m4a(s) 格式的音频装换为 mp3
+
+        :param m4a_path: 源文件 (`.m4a` / `.m4s`) 路径
+        :param mp3_path: 输出文件 (`.mp3`) 路径
+        :param ffmpeg_path: ffmpeg 可执行文件的路径
+        :param force_override: 当输出文件存在时是否直接替换
+
+        *ps: 检测到失败会抛出错误*
+        '''
         command = f'{ffmpeg_path} -i "{m4a_path}" -vn "{mp3_path}"'  # -ab "128k"
         if force_override:
             command += ' -f flag'
@@ -191,6 +206,3 @@ class utils:
         except subprocess.CalledProcessError as e:
             self.error(f"[m4a(s)/mp3 convert] Convert {m4a_path} -> {mp3_path} using {ffmpeg_path} failed: {e}")
             raise (e)
-
-    # 使用时，提供你的 m4a 文件路径和 mp3 文件路径
-    # convert_m4a_to_mp3("input.m4a", "output.mp3", ffmpeg_path='D:\\wyf9\\PATH\\ffmpeg.exe')

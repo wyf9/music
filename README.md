@@ -5,16 +5,17 @@ My music library on GitHub
 这也是一个测试github上能不能放音乐的库
 
 > [!TIP]
-> 如下所说, 本库 `/bili` 目录下的音频名称格式为 *编号_**AV号**_名称.mp3*, 如果看到自己喜欢的歌曲可以跳转 `https://bilibili.com/video/av[AV号]` 查看原视频~
+> 如下所说, 本库 `/bili` 目录下的音频名称格式为 *编号_**AV号**_名称.mp3*, 如果发现自己喜欢的歌曲可以跳转 `https://bilibili.com/video/av[AV号]` 查看原视频~
 
 ## 本库唯一的代码
 
 - `/create.py`
 
 这是一个从手机 bilibili 缓存目录到此, 实现:
+
 - 通过 AV/BV 号确定音频 (audio.m4s)
 - 编号, ~~改名~~ 转换格式
-- And more?
+- (以指定文件名格式) 复制到指定路径
 
 的脚本.
 
@@ -72,7 +73,7 @@ configs = [
 
 ```sh
 pip install colorama
-# or without apt
+# or without apt on Debian/Ubuntu
 pip install colorama --break-system-packages
 # or apt
 apt install python3-colorama
@@ -89,7 +90,7 @@ apt install python3-colorama
 
 `/.scripts/autoClick.py`
 
-包含: 野生的自动点击脚本，用于完成在 [音乐播放软件](https://github.com/zhongyang219/MusicPlayer2) 中 *嵌入歌词/封面* 等操作
+一个野生的自动点击脚本，用于使用快捷键快速完成在 [音乐播放软件](https://github.com/zhongyang219/MusicPlayer2) 中的 *嵌入歌词/封面* 等操作
 
 依赖:
 
@@ -99,7 +100,7 @@ apt install python3-colorama
 
 ```sh
 pip install pyyaml keyboard pyautogui
-# or without apt
+# or without apt on Debian/Ubuntu
 pip install pyyaml keyboard pyautogui --break-system-packages
 ```
 
