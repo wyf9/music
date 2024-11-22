@@ -12,7 +12,7 @@ def main():
         config = yaml.safe_load(f)
 
     print(f'Add hotkey: ctrl+shift+0 -> mouse_click_2()')
-    keyboard.add_hotkey(shortcut, mouse_click_2)
+    keyboard.add_hotkey('ctrl+shift+0', mouse_click_2)
     # 注册按键监听事件
     for shortcut, coordinates in config.items():
         print(f'Add hotkey: {shortcut} -> {coordinates}')
