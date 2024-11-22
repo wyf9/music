@@ -100,8 +100,6 @@ apt install python3-colorama
 
 ```sh
 pip install pyyaml keyboard pyautogui
-# or without apt on Debian/Ubuntu
-pip install pyyaml keyboard pyautogui --break-system-packages
 ```
 
 ## Contact
