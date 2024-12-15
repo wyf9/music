@@ -9,7 +9,7 @@ My music library on GitHub
 
 ## 本库唯一的代码
 
-- `/create.py`
+- `/create.py` (和 `config.py`, `create.py`)
 
 这是一个从手机 bilibili 缓存目录到此, 实现:
 
