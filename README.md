@@ -73,10 +73,6 @@ configs = [
 
 ```sh
 pip install colorama
-# or without apt on Debian/Ubuntu
-pip install colorama --break-system-packages
-# or apt
-apt install python3-colorama
 ```
 
 > [!WARNING]
