@@ -150,7 +150,7 @@ class utils:
         '''
         查找目录中的 `entry.json`, `audio.m4s`
 
-        缓存目录在 Android 上一般为 /storage/emulated/0/Android/data/tv.danmaku.bili/download/*{av_id}*
+        缓存目录在 Android 上一般为 /storage/emulated/0/Android/data/tv.danmaku.bili/download/{av_id}
 
         :param path: bilibili 的 `download` (缓存) 目录
         :return entry_path: `entry.json` (绝对目录)
