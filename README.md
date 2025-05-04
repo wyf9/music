@@ -2,14 +2,14 @@
 
 My music library on GitHub
 
-这也是一个测试github上能不能放音乐的库
+*这也是一个测试 github 上能不能放音乐的库*
 
 > [!TIP]
 > 如下所说, 本库 `/bili` 目录下的音频名称格式为 *编号_**AV号**_名称.mp3*, 如果发现自己喜欢的歌曲可以跳转 `https://bilibili.com/video/av[AV号]` 查看原视频~
 
 ## 本库唯一的代码
 
-- `/create.py` (和 `config.py`, `create.py`)
+- `/create.py` *(和 `config.py`, `create.py`)*
 
 这是一个从手机 bilibili 缓存目录到此, 实现:
 
@@ -24,7 +24,7 @@ My music library on GitHub
 
 ### Rclone
 
-Rclone 启动命令参考 (**请保持命令行开启**)
+Rclone 启动命令参考 (**请保持程序运行**)
 ```shell
 rclone mount redmi:/  R: --cache-dir E:\rclone_tmp\redmi --vfs-cache-mode writes
 ```
@@ -86,7 +86,7 @@ pip install colorama
 
 `/.scripts/autoClick.py`
 
-一个野生的自动点击脚本，用于使用快捷键快速完成在 [音乐播放软件](https://github.com/zhongyang219/MusicPlayer2) 中的 *嵌入歌词/封面* 等操作
+一个野生的自动点击脚本，用于使用快捷键快速完成在 [音乐播放软件](https://github.com/zhongyang219/MusicPlayer2) 中的 **嵌入歌词** 和 **嵌入封面** 操作
 
 依赖:
 
@@ -97,6 +97,8 @@ pip install colorama
 ```sh
 pip install pyyaml keyboard pyautogui
 ```
+
+> **需要自行更改 `autoClick_config.yml` 中的坐标**
 
 ## Contact
 
