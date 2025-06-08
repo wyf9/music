@@ -148,7 +148,7 @@ class utils:
 
     def find_json_m4s(self, path: str):
         '''
-        查找目录中的 `entry.json`, `audio.m4s` 或 `0.blv`
+        查找目录中的 `entry.json`, `audio.m4s`
 
         缓存目录在 Android 上一般为 /storage/emulated/0/Android/data/tv.danmaku.bili/download/{av_id}
 
@@ -165,7 +165,7 @@ class utils:
             for file in files:
                 if file == "entry.json":
                     entry_path = os.path.join(root, file)
-                elif file == "audio.m4s" or file == "0.blv": # audio.m4s (new) / 0.blv (old)
+                elif file == "audio.m4s":
                     audio_path = os.path.join(root, file)
 
         return entry_path, audio_path
@@ -177,7 +177,7 @@ class utils:
         :param json_name: 文件名
         :return: 列表或字典
 
-        > *(copied from siiway/CmdlineAI@dev/utils.py)*
+        > *(copied from wyf01239/CmdlineAI@dev/utils.py)*
         '''
         try:
             with open(json_name, 'r', encoding='utf-8') as file:
