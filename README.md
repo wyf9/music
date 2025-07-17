@@ -25,13 +25,16 @@ My music library on GitHub
 ### Rclone
 
 Rclone 启动命令参考 (**请保持程序运行**)
-```shell
-rclone mount redmi:/  R: --cache-dir E:\rclone_tmp\redmi --vfs-cache-mode writes
+```bat
+rclone mount redmi:/ R: --cache-dir E:\rclone_tmp\redmi --vfs-cache-mode writes
+```
+```sh
+rclone mount redmi:/ /media/redmi --vfs-cache-mode writes
 ```
 
 替换以下字段:
 - `redmi` : 使用 `rclone config` 创建远程时定义的名称
-- `R:` 为挂载盘符
+- `R:` 为挂载盘符 / `/media/redmi/` 为挂载目录
 - `E:\rclone_tmp\redmi` 为缓存目录
 
 ### 寻找缓存目录
@@ -80,7 +83,8 @@ pip install colorama
 
 按程序中的指引操作即可
 
-> 在 Windows 中按时间顺序(先后)列出文件夹: `dir /A:D /O:D` (加 `/B` 为空格式, 即只留文件名，一行一个)
+> 在 Windows 中按时间顺序(先后)列出文件夹: `dir /A:D /O:D` (加 `/B` 为空格式, 即只留文件名，一行一个) <br/>
+> Linux 等效命令: `ls -td -- */ | sed 's|/$||' | tac`
 
 ## 小脚本
 

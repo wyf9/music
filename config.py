@@ -15,6 +15,11 @@ configs = [
         'baseFolder': r'R:\Android\data\tv.danmaku.bili\download',  # str: 缓存目录
         'targetFolder': r'E:\wyf9\music\bili',  # str: 目标目录
     },
+    {
+        'name': 'wyf9Desktop-redmi-rclone',  # str: 名称
+        'baseFolder': r'/media/redmi/Android/data/tv.danmaku.bili/download',  # str: 缓存目录
+        'targetFolder': r'/sync/music/bili',  # str: 目标目录
+    },
     # {
     # ...
     # }

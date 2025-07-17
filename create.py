@@ -3,7 +3,6 @@
 # import
 from sys import exit as sys_exit
 from os import path
-# from shutil import copy2 # unused
 from config import config, configs
 from utils import utils as utils_init
 u = utils_init()
@@ -49,7 +48,7 @@ def cp(num: int, avid: int, audio_path: str, targetFolder: str, audioNameStr: st
     return 0
 
 
-def info(entry_path: str, num: int, avid: int, audio_name: str = None):
+def info(entry_path: str, num: int, avid: int, audio_name: str | None = None):
     '''
     Show video information, and get `audio_name` from user input
 

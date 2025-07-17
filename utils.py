@@ -68,20 +68,9 @@ class utils:
 
         并作出了一点修改:
         - 封装为 class
+        - 日志记录使用上级 utils 的函数
         - 增加自动判断 av or bv: convert()
         '''
-
-        def __init__(self, utils_instance: object):
-            '''
-            :param utils_instance: utils 实例 (本 class 的上级)
-
-            示例如下:
-            ```
-            u = utils_init()
-            u.videoid = u.videoid_init(utils_instance = u)
-            ```
-            '''
-            self.utils_instance = utils_instance
         XOR_CODE = 23442827791579
         MASK_CODE = 2251799813685247
         MAX_AID = 1 << 51
@@ -93,6 +82,18 @@ class utils:
         PREFIX = "BV1"
         PREFIX_LEN = len(PREFIX)
         CODE_LEN = len(ENCODE_MAP)
+
+        def __init__(self, utils_instance: object):
+            '''
+            :param utils_instance: utils 实例 (本 class 的上级)
+
+            示例如下:
+            ```
+            u = utils_init()
+            u.videoid = u.videoid_init(utils_instance = u)
+            ```
+            '''
+            self.utils_instance = utils_instance  # type: ignore
 
         def av2bv(self, avid: int) -> str:
             '''
@@ -124,14 +125,15 @@ class utils:
                 tmp = tmp * self.BASE + idx
             return (tmp & self.MASK_CODE) ^ self.XOR_CODE
 
-        def convert(self, id: str) -> int:
+        def convert(self, id: str) -> int | None:
             '''
             增加
             自动判断是否为 av 号, 如不是则转换为 av 号
 
             :param id: av or bv
-            :return retid: avid
+            :return retid: avid / None (如转换失败)
             '''
+            self.utils_instance: utils
             try:
                 retid = int(id)
                 self.utils_instance.debug(f'[av/bv convert] avid: {retid}')
@@ -170,14 +172,14 @@ class utils:
 
         return entry_path, audio_path
 
-    def load_json(self, json_name: str):
+    def load_json(self, json_name: str) -> dict:
         '''
         加载 json 文件
 
         :param json_name: 文件名
         :return: 列表或字典
 
-        > *(copied from wyf01239/CmdlineAI@dev/utils.py)*
+        > *(copied from siiway/CmdlineAI@dev/utils.py)*
         '''
         try:
             with open(json_name, 'r', encoding='utf-8') as file:
