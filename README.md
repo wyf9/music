@@ -106,4 +106,5 @@ pip install pyyaml keyboard pyautogui
 
 ## Contact
 
-如果对此库有 想法/建议, 可 [Issue](https://github.com/wyf9/music/issues/new) or [More contact](https://wyf9.top/#/contact)
+如果对此库有 想法/建议, 可 [Issue](https://github.com/wyf9/music/issues/new) or [More contact](https://wyf9.top/t/c)
+
