@@ -20,6 +20,11 @@ configs = [
         'baseFolder': r'/media/redmi/Android/data/tv.danmaku.bili/download',  # str: 缓存目录
         'targetFolder': r'/sync/music/bili',  # str: 目标目录
     },
+    {
+        'name': 'wyf9Desktop-redmi-adbfs',  # str: 名称
+        'baseFolder': r'/media/redmi/sdcard/Android/data/tv.danmaku.bili/download',  # str: 缓存目录
+        'targetFolder': r'/sync/music/bili',  # str: 目标目录
+    },
     # {
     # ...
     # }

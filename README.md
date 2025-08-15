@@ -43,6 +43,15 @@ rclone mount redmi:/ /media/redmi --vfs-cache-mode writes
 
 > 在 Android 高版本中系统禁止第三方应用访问 `Android/data`, 可使用 MT 管理器 + Shizuku 来访问 (使用 MT 管理器的 `远程管理` 功能服务 FTP)
 
+### 用不了 Shizuku?
+
+试试 [adbfs-rootless](https://github.com/spion/adbfs-rootless)
+
+```sh
+# 将手机 *根目录* 挂载到本地 /media/redmi
+adbfs /media/redmi
+```
+
 ### 配置文件
 
 `/config.py`
